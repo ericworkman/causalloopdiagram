@@ -5,18 +5,18 @@ NODE!
 **********************************/
 
 Node.COLORS = {
-	0: "#EA3E3E", // red
-	1: "#EA9D51", // orange
-	2: "#FEEE43", // yellow
-	3: "#BFEE3F", // green
-	4: "#7FD4FF", // blue
-	5: "#A97FFF" // purple
+	0: "#ffaebc", // red
+	1: "#e7b7a6", // orange
+	2: "#fbe7c6", // yellow
+	3: "#b4f8c8", // green
+	4: "#a0e7e5", // blue
+	5: "#cdc8ca" // purple
 };
 
 Node.defaultValue = 0.5;
 Node.defaultHue = 0;
 
-Node.DEFAULT_RADIUS = 60;
+Node.DEFAULT_RADIUS = 30;
 
 function Node(model, config){
 
@@ -53,7 +53,7 @@ function Node(model, config){
 	var _controlsAlpha = 0;
 	var _controlsDirection = 0;
 	var _controlsSelected = false;
-	var _controlsPressed = false;	
+	var _controlsPressed = false;
 	var _listenerMouseMove = subscribe("mousemove", function(){
 
 		// ONLY WHEN PLAYING
@@ -80,7 +80,7 @@ function Node(model, config){
 		if(_controlsPressed){
 
 			// Change my value
-			var delta = _controlsDirection*0.33; // HACK: hard-coded 0.33
+			var delta = _controlsDirection*0.1; // HACK: hard-coded
 			self.value += delta;
 
 			// And also PROPAGATE THE DELTA
@@ -119,7 +119,12 @@ function Node(model, config){
 		self.value += signal.delta;
 
 		// Propagate signal
-		self.sendSignal(signal);
+    console.log(signal.delta);
+    signal.delta *= 0.9;
+    console.log(signal.delta);
+    if (Math.abs(signal.delta) > 0.04) {
+      self.sendSignal(signal);
+    }
 		// self.sendSignal(signal.delta*0.9); // PROPAGATE SLIGHTLY WEAKER
 
 		// Animation
@@ -187,7 +192,7 @@ function Node(model, config){
 		// Translate!
 		ctx.save();
 		ctx.translate(x,y+_offset);
-		
+
 		// DRAW HIGHLIGHT???
 		if(self.loopy.sidebar.currentPage.target == self){
 			ctx.beginPath();
@@ -195,7 +200,7 @@ function Node(model, config){
 			ctx.fillStyle = HIGHLIGHT_COLOR;
 			ctx.fill();
 		}
-		
+
 		// White-gray bubble with colored border
 		ctx.beginPath();
 		ctx.arc(0, 0, r-2, 0, Math.TAU, false);
@@ -204,7 +209,7 @@ function Node(model, config){
 		ctx.lineWidth = 6;
 		ctx.strokeStyle = color;
 		ctx.stroke();
-		
+
 		// Circle radius
 		// var _circleRadiusGoto = r*(self.value+1);
 		// _circleRadius = _circleRadius*0.75 + _circleRadiusGoto*0.25;

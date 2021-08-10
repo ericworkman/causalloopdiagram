@@ -29,7 +29,7 @@ function Loopy(config){
 
 	// Mouse
 	Mouse.init(document.getElementById("canvasses")); // TODO: ugly fix, ew
-	
+
 	// Model
 	self.model = new Model(self);
 
@@ -162,18 +162,18 @@ function Loopy(config){
 		return link;
 
 	};
-	
+
 	// "BLANK START" DATA:
-	
-	var _blankData ='[[[4,675,269,0.5,%22Effect%22,3],[9,521,241,0.5,%22Side%2520effect%22,5],[11,524,416,0.5,%22External%2520influence%22,4],[13,361,257,0.5,%22Cause%22,0]],[[9,4,8,1,0],[13,9,63,1,0],[11,4,10,1,0],[11,9,-5,1,0],[4,9,-66,-1,0],[11,13,20,-1,0]],[[516,140,%22Direct%2520causal%2520relations%250Aare%2520never%2520there..%22],[755,453,%22CLD%27s%2520will%2520help%2520you%2520too!%2520%250A%250AUse%2520it%2520for%2520discovering%2520of%253A%250A-%2520Digital%2520Innovation%250A-%2520Organizational%2520%250A-%2520Changes%250A-%2520Business%2520cases%250AAnd%2520to%2520solve%2520problems!%22]],13%5D';
-		
+
+  var _blankData = '[[[4,992,354,0.5,%22Effect%22,3],[9,728,385,0.5,%22Side%2520effect%22,5],[13,596,258,0.5,%22Cause%22,0]],[[9,4,8,1,0],[13,9,-2,1,0],[4,9,-162,-1,0]],[],13%5D';
+
 
 
 	self.loadFromURL = function(){
 		var data = _getParameterByName("data");
 		if(!data) data=decodeURIComponent(_blankData);
 		self.model.deserialize(data);
-	}; 
+	};
 
 
 	///////////////////////////

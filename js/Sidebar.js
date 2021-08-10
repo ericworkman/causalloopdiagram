@@ -135,7 +135,7 @@ function Sidebar(loopy){
 			page.getComponent("text").select();
 		};
 		page.onhide = function(){
-			
+
 			// If you'd just edited it...
 			var label = page.target;
 			if(!page.target) return;
@@ -164,23 +164,23 @@ function Sidebar(loopy){
 		var page = new SidebarPage();
 		page.addComponent(new ComponentHTML({
 			html: ""+
-			
+
 			"<b style='font-size:1.4em'>Causal Loop Diagram</b><br>Simple tool for system thinking<br><br>"+
 
 			"<span class='mini_button' onclick='publish(\"modal\",[\"examples\"])'>Examples</span> "+
 			"<span class='mini_button' onclick='publish(\"modal\",[\"howto\"])'>Help</span> "+
-			
+
 			"<hr/><br>"+
 
 			"<span class='mini_button' onclick='publish(\"modal\",[\"save_link\"])'>Save your link</span> <br><br>"+
 			"<span class='mini_button' onclick='publish(\"modal\",[\"mail_link\"])'>Mail your Diagram</span> <br><br>"+
 			"<span class='mini_button' onclick='publish(\"modal\",[\"embed\"])'>Embed in your website</span> <br><br>"+
-			
+
 			"<hr/><br>"+
-				
+
 			"<div id=bms><a target='_blank' href='https://www.bm-support.org/'> Radical Open Innovation <br>Solving Problems Together</a></div>" +
 			"<div id=credits><br><br><hr><br>(c) 2018 Maikel Mardjan - Licensed GPLv3. Contributions are welcome!<a target='_blank' href='https://github.com/nocomplexity/'>Software Repository</a></div>"
-			 			
+
 
 		}));
 		self.addPage("Edit", page);
@@ -278,14 +278,14 @@ function Component(){
 		return self.page.target[self.propName];
 	};
 	self.setValue = function(value){
-		
+
 		// Model's been changed!
 		publish("model/changed");
 
 		// Edit the value!
 		self.page.target[self.propName] = value;
 		self.page.onedit(); // callback!
-		
+
 	};
 }
 
@@ -445,5 +445,5 @@ function ComponentOutput(config){
 	self.output = function(string){
 		self.dom.value = string;
 	};
-	
+
 }
