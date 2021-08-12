@@ -5,12 +5,12 @@ NODE!
 **********************************/
 
 Node.COLORS = {
-	0: "#ffaebc", // red
-	1: "#e7b7a6", // orange
-	2: "#fbe7c6", // yellow
-	3: "#b4f8c8", // green
-	4: "#a0e7e5", // blue
-	5: "#cdc8ca" // purple
+	0: "#FF9AA2", // red
+	1: "#f0bea6", // orange
+	2: "#E2F0CB", // yellow
+	3: "#95b594", // green
+	4: "#88bacd", // blue
+	5: "#C7CEEA" // purple
 };
 
 Node.defaultValue = 0.5;
@@ -33,7 +33,7 @@ function Node(model, config){
 		id: Node._getUID,
 		x: 0,
 		y: 0,
-		init: Node.defaultValue, // initial value!
+		init: Node.defaultValue,
 		label: "?",
 		hue: Node.defaultHue,
 		radius: Node.DEFAULT_RADIUS
@@ -114,23 +114,24 @@ function Node(model, config){
 	};
 
 	self.takeSignal = function(signal){
+		//console.log(self.label, "signal delta", signal.delta);
 
 		// Change value
 		self.value += signal.delta;
+		//console.log(self.label, "node value", self.value);
 
 		// Propagate signal
-    console.log(signal.delta);
-    signal.delta *= 0.9;
-    console.log(signal.delta);
-    if (Math.abs(signal.delta) > 0.04) {
-      self.sendSignal(signal);
-    }
+		signal.delta *= 0.9;
+		if (Math.abs(signal.delta) > 0.04) {
+			self.sendSignal(signal);
+		}
 		// self.sendSignal(signal.delta*0.9); // PROPAGATE SLIGHTLY WEAKER
 
 		// Animation
 		// _offsetVel += 0.08 * (signal.delta/Math.abs(signal.delta));
-		_offsetVel -= 6 * (signal.delta/Math.abs(signal.delta));
-
+		if (Math.abs(signal.delta) > 0) {
+			_offsetVel -= 6 * (signal.delta/Math.abs(signal.delta));
+		}
 	};
 
 

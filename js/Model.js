@@ -84,7 +84,7 @@ function Model(loopy){
 		publish("model/changed");
 
 		// Add Edge
-		var edge = new Edge(self,config);
+		var edge = new Edge(self, config);
 		self.edges.push(edge);
 		self.update();
 		return edge;
@@ -283,12 +283,16 @@ function Model(loopy){
 			// 1 - to
 			// 2 - arc
 			// 3 - strength
-			// 4 - rotation (optional)
+			// 4 - chance
+			// 5 - propgate_negatives
+			// 6 - rotation (optional)
 			var dataEdge = [
 				edge.from.id,
 				edge.to.id,
 				Math.round(edge.arc),
-				edge.strength
+				edge.strength,
+				edge.chance,
+				edge.propogate_negatives,
 			];
 			if(dataEdge.f==dataEdge.t){
 				dataEdge.push(Math.round(edge.rotation));
@@ -355,9 +359,11 @@ function Model(loopy){
 				from: edge[0],
 				to: edge[1],
 				arc: edge[2],
-				strength: edge[3]
+				strength: edge[3],
+				chance: edge[4],
+				propogate_negatives: edge[5]
 			};
-			if(edge[4]) edgeConfig.rotation=edge[4];
+			if(edge[6]) edgeConfig.rotation=edge[6];
 			self.addEdge(edgeConfig);
 		}
 

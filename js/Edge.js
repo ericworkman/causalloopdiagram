@@ -5,9 +5,12 @@ EDGE!
 **********************************/
 
 Edge.allSignals = [];
-Edge.MAX_SIGNALS = 100;
-Edge.MAX_SIGNALS_PER_EDGE = 10;
+Edge.MAX_SIGNALS = 5000;
+Edge.MAX_SIGNALS_PER_EDGE = 50;
 Edge.defaultStrength = 1;
+Edge.defaultChance = 1;
+Edge.defaultPropogateNegatives = 1;
+
 Edge.scale = 4;
 
 function Edge(model, config){
@@ -26,7 +29,9 @@ function Edge(model, config){
 		to: _makeErrorFunc("CAN'T LEAVE 'TO' BLANK"),
 		arc: 100,
 		rotation: 0,
-		strength: Edge.defaultStrength
+		strength: Edge.defaultStrength,
+		chance: Edge.defaultChance,
+		propogate_negatives: Edge.defaultPropogateNegatives,
 	});
 
 	// Get my NODES
@@ -45,6 +50,15 @@ function Edge(model, config){
 
 		// IF TOO MANY *ON THIS EDGE*, FORGET IT
 		if(self.signals.length>Edge.MAX_SIGNALS_PER_EDGE){
+			return;
+		}
+
+		if (Math.random() > self.chance) {
+			return;
+		}
+
+		console.log(signal.delta < 0, self.propogate_negatives)
+		if ((signal.delta < 0) && (self.propogate_negatives!=1)) {
 			return;
 		}
 
@@ -274,16 +288,10 @@ function Edge(model, config){
 		aa = end + Math.TAU/4;
 
 		// My label is...
-		var s = self.strength;
-		var l;
-		if(s>=3) l="+++";
-		else if(s>=2) l="++";
-		else if(s>=1) l="+";
-		else if(s==0) l="?";
-		else if(s>=-1) l="–"; // EM dash, not hyphen.
-		else if(s>=-2) l="– –";
-		else l="– – –";
-		self.label = l;
+		self.label = "x" + self.strength + " | " + self.chance;
+		if (self.propogate_negatives==0) {
+			self.label += " *"
+		}
 
 		// Label position
 		var labelPosition = self.getPositionAlongArrow(0.5);
@@ -366,7 +374,7 @@ function Edge(model, config){
 	self.draw = function(ctx){
 
 		// Width & Color
-		ctx.lineWidth = 4*Math.abs(self.strength)-2;
+		ctx.lineWidth = 4*Math.abs(self.strength);
 		ctx.strokeStyle = "#666";
 
 		// Translate & Rotate!
@@ -408,7 +416,7 @@ function Edge(model, config){
 		ctx.stroke();
 
 		// Draw label
-		ctx.font = "100 60px sans-serif";
+		ctx.font = "100 36px sans-serif";
 		ctx.textAlign = "center";
 		ctx.textBaseline = "middle";
 		ctx.save();

@@ -165,9 +165,7 @@ function Loopy(config){
 
 	// "BLANK START" DATA:
 
-  var _blankData = '[[[4,992,354,0.5,%22Effect%22,3],[9,728,385,0.5,%22Side%2520effect%22,5],[13,596,258,0.5,%22Cause%22,0]],[[9,4,8,1,0],[13,9,-2,1,0],[4,9,-162,-1,0]],[],13%5D';
-
-
+  	var _blankData = '[[[4,983,363,0.5,%22Effect%22,3],[9,719,394,0.5,%22Side%2520effect%22,5],[13,587,267,0.5,%22Cause%22,0]],[[9,4,8,1,1,1,0],[13,9,-2,1,1,1,0],[4,9,-162,-1,1,1,0]],[],13%5D'
 
 	self.loadFromURL = function(){
 		var data = _getParameterByName("data");

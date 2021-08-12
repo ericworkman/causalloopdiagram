@@ -92,16 +92,27 @@ function Sidebar(loopy){
 		}));
 		page.addComponent("strength", new ComponentSlider({
 			bg: "strength",
-			label: "<br><br>Relationship:",
-			//label: "Relationship:",
-			options: [1, -1],
+			label: "<br><br>Relationship Strength:",
+			options: [2, 1.5, 1, 0.75, 0.5, 0.25, 0, -0.25, -0.5, -0.75, -1, -1.5, -2],
 			oninput: function(value){
 				Edge.defaultStrength = value;
 			}
 		}));
-		page.addComponent(new ComponentHTML({
-			html: "(to make a stronger relationship, draw multiple arrows!)<br><br>"+
-			"(to make a delayed relationship, draw longer arrows)"
+		page.addComponent("chance", new ComponentSlider({
+			bg: "chance",
+			label: "<br><br>Propogation Chance:",
+			options: [0, 0.10, 0.25, 0.5, 0.75, 0.9, 1],
+			oninput: function(value){
+				Edge.defaultChance = value;
+			}
+		}));
+		page.addComponent("propogate_negatives", new ComponentSlider({
+			bg: "boolean",
+			label: "<br><br>Propogate Negatives:",
+			options: [1, 0],
+			oninput: function(value){
+				Edge.defaultPropogateNegatives = value;
+			}
 		}));
 		page.addComponent(new ComponentButton({
 			//label: "delete edge",
