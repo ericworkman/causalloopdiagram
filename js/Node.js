@@ -121,7 +121,7 @@ function Node(model, config){
 		//console.log(self.label, "node value", self.value);
 
 		// Propagate signal
-		signal.delta *= 0.9;
+		//signal.delta *= 0.9;
 		if (Math.abs(signal.delta) > 0.04) {
 			self.sendSignal(signal);
 		}
